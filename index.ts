@@ -4,6 +4,9 @@ import { spawnSync } from "bun"
 import { writeFileSync } from "fs"
 import chalk from "chalk"
 
+// Force Chalk to enable colors
+chalk.level = 3 // 3 corresponds to full color support
+
 async function runCommand(command: string, args: string[]) {
     const result = spawnSync([command, ...args], {
         stdout: "inherit",

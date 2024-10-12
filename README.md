@@ -11,16 +11,31 @@ The script performs the following tasks:
 3. Initializes Tailwind CSS configuration
 4. Sets up Prettier configuration
 5. Adds Tailwind CSS directives to the main CSS file
+6. Cleans up the project structure by removing unnecessary files and directories
 
 ## Usage
 
-Run the script using Bun, providing the project name as an argument:
+### Prerequisites
+
+-   Ensure that [Bun](https://bun.sh/) is installed on your system. Bun is required to run the script and manage dependencies.
+
+### Installing the CLI
+
+To create a new Vite project, simply run:
 
 ```bash
-bun run index.ts <project-name>
+bun run create
 ```
 
-Replace `<project-name>` with your desired project name.
+### Usage
+
+To create a project named `my-vite-app`, you would run:
+
+```bash
+gmake my-vite-app
+```
+
+This command will create a new Vite project in the current directory named `my-vite-app` and set up all necessary configurations and dependencies.
 
 ## Main Functions
 
@@ -70,3 +85,10 @@ The script will install the following dependencies:
 ## Note
 
 Make sure you have the necessary permissions to create directories and install packages in the location where you run this script. The script will modify the project structure by removing some default files and simplifying the initial setup.
+
+```
+
+-   **Project Creation**: The script starts by creating a Vite project using the React and TypeScript template.
+-   **Dependency Installation**: It installs Tailwind CSS, PostCSS, Autoprefixer, Prettier, and GSAP.
+-   **Configuration**: Tailwind CSS and Prettier configurations are initialized and set up.
+-   **Cleanup**: Unnecessary files and directories are removed to streamline the project structure.

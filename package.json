@@ -1,5 +1,6 @@
 {
     "name": "gmake",
+    "version": "1.0.0",
     "module": "index.ts",
     "type": "module",
     "devDependencies": {
@@ -8,6 +9,7 @@
     },
     "scripts": {
         "test": "bun run index.ts test",
+        "create": "bun run build && bun start",
         "build": "bun build index.ts --outdir dist",
         "start": "chmod +x dist/index.js && npm install -g ."
     },
