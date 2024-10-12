@@ -46,6 +46,10 @@ This is the main function that orchestrates the project creation process.
 5. Update `tailwind.config.js`
 6. Add Tailwind CSS directives to `src/index.css`
 7. Initialize Prettier configuration
+8. Clean up project structure:
+    - Delete `/src/assets` directory
+    - Remove `App.css`
+    - Reset `App.tsx` with a simplified component
 
 ## Error Handling
 
@@ -58,6 +62,11 @@ The script includes basic error handling:
 
 This script requires Bun to be installed on your system. It uses Bun's built-in `spawnSync` function for running shell commands.
 
+The script will install the following dependencies:
+
+-   Development dependencies: tailwindcss, postcss, autoprefixer, prettier, prettier-plugin-tailwindcss
+-   Production dependencies: gsap, @gsap/react
+
 ## Note
 
-Make sure you have the necessary permissions to create directories and install packages in the location where you run this script.
+Make sure you have the necessary permissions to create directories and install packages in the location where you run this script. The script will modify the project structure by removing some default files and simplifying the initial setup.

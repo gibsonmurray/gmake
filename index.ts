@@ -2,6 +2,7 @@
 
 import { spawnSync } from "bun"
 import { writeFileSync } from "fs"
+import chalk from "chalk"
 
 async function runCommand(command: string, args: string[]) {
     const result = spawnSync([command, ...args], {
@@ -16,7 +17,11 @@ async function runCommand(command: string, args: string[]) {
 
 async function createViteApp(projectName: string) {
     try {
-        console.log(`Creating Vite project: ${projectName}`)
+        console.log(
+            chalk.cyan(
+                `\n🚀 Creating Vite project: ${chalk.bold(projectName)}\n`
+            )
+        )
 
         // Step 1: Create Vite project with React and TypeScript template
         await runCommand("bun", [
@@ -31,9 +36,7 @@ async function createViteApp(projectName: string) {
         process.chdir(projectName)
 
         // Step 3: Install Tailwind CSS, PostCSS, and Autoprefixer
-        console.log(
-            "Installing Tailwind CSS, PostCSS, Autoprefixer, and GSAP..."
-        )
+        console.log(chalk.cyan("\n📦 Installing dependencies...\n"))
         await runCommand("bun", [
             "add",
             "-d",
@@ -46,7 +49,7 @@ async function createViteApp(projectName: string) {
         await runCommand("bun", ["add", "gsap", "@gsap/react"])
 
         // Step 4: Initialize Tailwind CSS configuration
-        console.log("Initializing Tailwind CSS...")
+        console.log(chalk.cyan("\n🎨 Initializing Tailwind CSS...\n"))
         await runCommand("bun", ["x", "tailwindcss", "init", "-p"])
 
         // Step 5: Update `tailwind.config.js`
@@ -62,13 +65,13 @@ export default {
         writeFileSync("tailwind.config.js", tailwindConfig, "utf8")
 
         // Step 6: Add Tailwind CSS directives to the main CSS file
-        console.log("Setting up Tailwind CSS in styles...")
+        console.log(chalk.cyan("\n🖌️  Setting up Tailwind CSS in styles...\n"))
         const tailwindDirectives =
             "@tailwind base;\n@tailwind components;\n@tailwind utilities;"
         writeFileSync("./src/index.css", tailwindDirectives, "utf8")
 
         // Step 7: Initialize Prettier
-        console.log("Initializing Prettier...")
+        console.log(chalk.cyan("\n💅 Initializing Prettier...\n"))
         const prettierConfig = `{
     "semi": false,
     "tabWidth": 4,
@@ -79,7 +82,7 @@ export default {
         writeFileSync(".prettierrc", prettierConfig, "utf8")
 
         // New Step 8: Cleaning up
-        console.log("Cleaning up project structure...")
+        console.log(chalk.cyan("\n🧹 Cleaning up project structure...\n"))
 
         // Delete /src/assets directory
         await runCommand("rm", ["-rf", "src/assets"])
@@ -88,8 +91,7 @@ export default {
         await runCommand("rm", ["src/App.css"])
 
         // Reset App.tsx
-        const simplifiedAppTsx = 
-`const App = () => {
+        const simplifiedAppTsx = `const App = () => {
     return (
         <div>
             <h1>Hello, World!</h1>
@@ -102,10 +104,14 @@ export default App
         writeFileSync("src/App.tsx", simplifiedAppTsx, "utf8")
 
         console.log(
-            `Project setup complete! Navigate to ${projectName} to get started.`
+            chalk.green(
+                `\n✅ Project setup complete! Navigate to ${chalk.bold(
+                    projectName
+                )} to get started.\n`
+            )
         )
     } catch (error) {
-        console.error("Error creating project:", error)
+        console.error(chalk.red("\n❌ Error creating project:"), error)
     }
 }
 
@@ -116,4 +122,5 @@ if (!projectName) {
     process.exit(1)
 }
 
+console.log(chalk.yellow("\n🏁 Starting project creation...\n"))
 createViteApp(projectName)
