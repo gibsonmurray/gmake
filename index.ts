@@ -47,7 +47,7 @@ async function createViteApp(projectName: string) {
             "prettier",
             "prettier-plugin-tailwindcss",
         ])
-        await runCommand("bun", ["add", "framer-motion@12.0.0-alpha.0"])
+        await runCommand("bun", ["add", "framer-motion@12.0.0-alpha.0", "lucide-react"])
 
         console.log(chalk.cyan("\n⚛️ Installing React 19...\n"))
         await runCommand("bun", ["add", "react@rc", "react-dom@rc"])
