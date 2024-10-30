@@ -21,9 +21,7 @@ async function runCommand(command: string, args: string[]) {
 async function createViteApp(projectName: string) {
     try {
         console.log(
-            chalk.cyan(
-                `\n🚀 Creating Vite project: ${chalk.bold(projectName)}\n`
-            )
+            chalk.cyan(`\n🚀 Creating Vite project: ${chalk.bold(projectName)}\n`)
         )
 
         // Step 1: Create Vite project with React and TypeScript template
@@ -49,7 +47,18 @@ async function createViteApp(projectName: string) {
             "prettier",
             "prettier-plugin-tailwindcss",
         ])
-        await runCommand("bun", ["add", "gsap", "@gsap/react"])
+        await runCommand("bun", ["add", "framer-motion"])
+
+        console.log(chalk.cyan("\n⚛️ Installing React 19...\n"))
+        await runCommand("bun", ["add", "react@rc", "react-dom@rc"])
+
+        console.log(chalk.cyan("\n📝 Updating package.json for React 19 types...\n"))
+        const packageJson = JSON.parse(await Bun.file("package.json").text())
+        packageJson.devDependencies["@types/react"] = "npm:types-react@rc"
+        packageJson.devDependencies["@types/react-dom"] = "npm:types-react-dom@rc"
+        writeFileSync("package.json", JSON.stringify(packageJson, null, 2))
+
+        await runCommand("bun", ["install"])
 
         // Step 4: Initialize Tailwind CSS configuration
         console.log(chalk.cyan("\n🎨 Initializing Tailwind CSS...\n"))
